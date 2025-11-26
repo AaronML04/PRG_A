@@ -179,15 +179,121 @@ public class UtilitatsClasses {
         ArrayList<Integer> parell = new ArrayList<>();
         
         
-        for(int valor : array){
+        for (int valor : array) {
+            
             if(valor % 2 == 0){
                 parell.add(valor);
-            }
+                
+                boolean inserit = false;
+                    // Recórrer el llistat per trobar la posició on insertar
+                for (int i = 0; i < parell.size(); i++) {
+                    if (valor < parell.get(i)) {
+                        parell.add(i, valor);   // Inserció ordenada
+                        inserit = true;
+                        break;
+                    }
+                }
+
+                // Si no s’ha inserit (és el més gran), afegir al final
+                if (!inserit) {
+                    parell.add(valor);
+                }
+            }  
         }
-        
-        
         return parell;
     }
+    
+    public static ArrayList<Integer> obteParellsOrdenatsSenseRepeticions(int[] array){
+       ArrayList<Integer> parell = new ArrayList<>();
+       
+        for(int valor : array){
+            if(valor % 2 == 0){
+            
+                boolean repetido = false;
 
+                for(int i = 0; i < parell.size(); i++){
+
+                    //compara
+                    if(parell.get(i).equals(valor)){
+                        repetido = true;
+                        break;
+                    }
+                    if (valor < parell.get(i)) {
+                        parell.add(i, valor);   // Inserció ordenada
+                        repetido = true;
+                        break;
+                    }
+                }
+
+                if(!repetido){
+                    parell.add(valor);
+                }
+            }
+        }
+        return parell;
+    }
+    
+    public static ArrayList<Integer> obteRepetits(int[] arr1, int[] arr2){
+        ArrayList<Integer> repes = new ArrayList<>();
+           /*
+        for (int valor1 : arr1) {
+            for (int valor2 : arr2) {
+                if (valor1 == valor2) {
+                    if (!repes.contains(valor1)) { // Evitar duplicats
+                        repes.add(valor1);
+                    }
+                }
+            }
+        }
+          */
+     
+        for (int valor1 : arr1) {
+
+        boolean repetido = false;
+
+        // 1. Ver si valor1 está en arr2
+        for (int valor2 : arr2) {
+            if (valor1 == valor2) {
+                repetido = true;
+                break;
+            }
+        }
+
+        // 2. Si no está repetido, saltamos
+        if (!repetido) continue;
+
+        // 3. Ver si ya está añadido
+        boolean yaAñadido = false;
+        for (int v : repes) {
+            if (v == valor1) {
+                yaAñadido = true;
+                break;
+            }
+        }
+
+        // 4. Añadirlo si no estaba
+        if (!yaAñadido) {
+            repes.add(valor1);
+        }
+    }
+        
+        return repes;
+    }
+    
+    public static ArrayList<Integer> obteDiferents(int[] arr1, int[] arr2){
+         ArrayList<Integer> dif = new ArrayList<>();
+    
+         for (int valor1 : arr1) {
+            for (int valor2 : arr2) {
+                if (valor1 != valor2) {
+                    if (!dif.contains(valor1)) { // Evitar duplicats
+                        dif.add(valor1);
+                    }
+                }
+            }
+        }
+        return dif;
+    }
+    
 }
     
