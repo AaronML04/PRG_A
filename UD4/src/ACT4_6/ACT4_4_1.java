@@ -49,7 +49,7 @@ public class ACT4_4_1 {
             }
         }
         
-       System.out.println("\n--- RESULTATS ---");
+       System.out.println("--- RESULTATS ---");
 
         for (int i = 0; i < alumnes.size(); i++) {
 
@@ -71,7 +71,7 @@ public class ACT4_4_1 {
 
             double mitjana = notesAlumne.size() > 0 ? suma / notesAlumne.size() : 0.0;
 
-            System.out.printf("\nMitjana = %.2f\n\n", mitjana);
+            System.out.println("\nMitjana = " + mitjana);
         }
 
     }

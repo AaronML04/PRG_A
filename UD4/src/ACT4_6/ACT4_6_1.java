@@ -4,14 +4,15 @@
  */
 package ACT4_6;
 
+
 /**
  *
  * @author AARON
  */
 public class ACT4_6_1 {
     static final int SIMBOL_BUIT = 0;   
-    static int SIMBOL_CUC = 1;          
-    static final int SIMBOL_FULLES = 9; 
+    static final int SIMBOL_CUC = 1;          
+    static final int SIMBOL_FULLES = 99; 
     static int NFULLES;                 
     static int NTAULER;                 
     static int[] fulla;                 
@@ -116,7 +117,7 @@ public class ACT4_6_1 {
             afegeixFulla(fulla);
         } else {
             // Si no come, la celda anterior se vacía
-            tauler[xAnt][yAnt] = SIMBOL_BUIT;
+            tauler[xAnt][yAnt] = SIMBOL_CUC;
         }
                 
         // Coloca al cuc en la nueva posición
@@ -134,5 +135,27 @@ public class ACT4_6_1 {
           //      posValida = true;
             }
         }
+    
+
+    public static void mostraTauler(int[][] tauler) {
+
+        System.out.println("\n--- TAULER FORMATAT ---\n");
+
+        for (int i = 0; i < tauler.length; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < tauler[i].length; j++) {
+
+                int valor = tauler[i][j];
+
+                switch (valor) {
+                    case SIMBOL_BUIT -> System.out.print("   ");
+                    case SIMBOL_FULLES ->  System.out.print(" * ");
+                    case SIMBOL_CUC ->    System.out.print(" O ");
+                    default ->            System.out.print(" ? ");
+                }
+            }
+            System.out.println(" |");
+        }
     }
+}
 
