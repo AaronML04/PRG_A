@@ -57,17 +57,17 @@ public class Globos {
      * Omple l'ArrayList 'globus' amb posicions aleatòries.
      */
     public static void emplenaTauler(ArrayList<int[]> globus) {
-        Random rand = new Random();
 
         while (globus.size() < NGLOBUS) {
-            int x = rand.nextInt(NTAULER);
-            int y = rand.nextInt(NTAULER);
+            int x = (int)(Math.random() * NTAULER);
+            int y = (int)(Math.random() * NTAULER);
 
             // Evitar repetits
             boolean repetit = false;
             for (int[] g : globus) {
                 if (g[0] == x && g[1] == y) {
                     repetit = true;
+                    break;
                 }
             }
 
