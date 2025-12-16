@@ -153,3 +153,151 @@ public class Globos {
         globusExplotats.addAll(perEliminar);
     }
 }
+
+/*
+ static int NTAULER;
+    static int NGLOBUS;
+    static final int SIMBOL_BUIT = 0;
+    static final int SIMBOL_GLOBUS = 1;
+    static final int SIMBOL_GLOBUS_EXPLOTAT = 9;
+    static int[][] tauler;
+    static ArrayList<int[]> globus = new ArrayList<>();
+    static ArrayList<int[]> globusExplotats = new ArrayList<>();
+    static int fila;
+    static int columna;
+
+    public static void main(String[] args) {
+        NTAULER = UtilitatsConsola.llegirSencer("Mida del tauler: ");
+        NGLOBUS = UtilitatsConsola.llegirSencer("Nombre de globus: ");
+
+        tauler = new int[NTAULER][NTAULER];  // matriu NTAULERxNTAULER
+        emplenaTauler(globus);
+        explotaGlobusEnDiagonals(globus, globusExplotats);
+
+        do {
+            mostrarTauler(tauler, globus, globusExplotats);
+
+            fila = UtilitatsConsola.llegirSencer("Nro. Fila: ");
+            columna = UtilitatsConsola.llegirSencer("Nro. Columna: ");
+            explotaGlobusEnFilaColumna(globus, globusExplotats, fila, columna);
+            System.out.println("Queden " + globus.size() + " globus. ");
+            System.out.println("S'han explotat " + globusExplotats.size() + " globus.");
+            
+            mostrarTauler(tauler, globus, globusExplotats);
+            System.out.println("\n\n\n\n\n");
+        } while (!globus.isEmpty());
+    }
+
+    /**
+     * ---------------------------------------------------------------- Ha
+     * d'emplenar l'ArrayList 'globus' amb 'NGLOBUS' posicions (x,y).
+     
+    public static void emplenaTauler(ArrayList<int[]> globus) {
+        do {
+            int[] aux = UtilitatsArrays.generaArray(2, 0, NTAULER - 1);
+            if (tauler[aux[0]][aux[1]] == SIMBOL_BUIT) {
+                tauler[aux[0]][aux[1]] = SIMBOL_GLOBUS;
+                globus.add(aux);
+                NGLOBUS--;
+            }
+        } while (NGLOBUS != 0);
+    }
+
+    /**
+     * ---------------------------------------------------------------- Ha de
+     * situar els globus en el tauler, tenint en compte de mostrar els seg�ents
+     * s�mbols: SIMBOL_GLOBUS ? " * " SIMBOL_GLOBUS_EXPLOTAT ? " O "
+     
+    public static void mostrarTauler(int[][] tauler, ArrayList<int[]> globus, ArrayList<int[]> globusExplotats) {
+        for (int i = 0; i < tauler.length; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < tauler.length; j++) {
+                int accio = tauler[i][j];
+                switch (accio) {
+                    case SIMBOL_BUIT:
+                        System.out.print("  ");
+                        break;
+                    case SIMBOL_GLOBUS:
+                        System.out.print("* ");
+                        break;
+                    case SIMBOL_GLOBUS_EXPLOTAT:
+                        System.out.print("O ");
+                        break;
+                }
+            }
+            System.out.println("|");
+        }
+    }
+
+    /**
+     * ---------------------------------------------------------------- ha de
+     * cercar els globus que estiguin en les diagonals principal i secund�ria:
+     * les ha d'eliminar de 'globus' i les ha de crear a 'globusExplotats'.
+     * AJUDA: ? diagonal principal ? posX = posY ? diagonal secund�ria ? posX +
+     * posY = NTAULER - 1
+     
+    public static void explotaGlobusEnDiagonals(ArrayList<int[]> globus, ArrayList<int[]> globusExplotats) {
+        //DIAGONAL PRINCIPAL
+        for (int i = 0; i < NTAULER; i++) {
+            if (tauler[i][i] == SIMBOL_GLOBUS) {
+                tauler[i][i] = SIMBOL_GLOBUS_EXPLOTAT;
+                //Afegir en globusExplotats y eliminar de globus
+                for (int j = 0; j < globus.size(); j++) {
+                    if (globus.get(j)[0] == i && globus.get(j)[1] == i) {
+                        globusExplotats.add(globus.get(j));
+                        globus.remove(j);
+                    }
+                }
+            }
+
+        }
+        //DIAGONAL SECUNDARIA
+        for (int i = 0; i < NTAULER; i++) {
+            if (tauler[(NTAULER - 1) - i][i] == SIMBOL_GLOBUS) {
+                tauler[(NTAULER - 1) - i][i] = SIMBOL_GLOBUS_EXPLOTAT;
+            }
+            //Afegir en globusExplotats y eliminar de globus
+            for (int j = 0; j < globus.size(); j++) {
+                if (globus.get(j)[0] == (NTAULER - 1) - i && globus.get(j)[1] == i) {
+                    globusExplotats.add(globus.get(j));
+                    globus.remove(j);
+                }
+            }
+        }
+    }
+
+    /**
+     * ---------------------------------------------------------------- ha de
+     * cercar els globus que estiguin en la 'fila' i la 'columna' indicada com a
+     * par�metre. ? les ha d'eliminar de 'globus' i les ha de crear a
+     * 'globusExplotats'.
+     
+    public static void explotaGlobusEnFilaColumna(ArrayList<int[]> globus, ArrayList<int[]> globusExplotats, int fila, int columna) {
+        //FILAS
+        for (int i = 0; i < tauler.length; i++) {
+            if (tauler[fila][i] == SIMBOL_GLOBUS) {
+                tauler[fila][i] = SIMBOL_GLOBUS_EXPLOTAT;
+                //Afegir en globusExplotats y eliminar de globus
+                for (int j = 0; j < globus.size(); j++) {
+                    if (globus.get(j)[0] == fila && globus.get(j)[1] == i) {
+                        globusExplotats.add(globus.get(j));
+                        globus.remove(j);
+                    }
+                }
+            }
+        }
+        //COLUMNAS
+        for (int i = 0; i < tauler.length; i++) {
+            if (tauler[i][columna] == SIMBOL_GLOBUS) {
+                tauler[i][columna] = SIMBOL_GLOBUS_EXPLOTAT;
+                //Afegir en globusExplotats y eliminar de globus
+                for (int j = 0; j < globus.size(); j++) {
+                    if (globus.get(j)[0] == i && globus.get(j)[1] == columna) {
+                        globusExplotats.add(globus.get(j));
+                        globus.remove(j);
+                    }
+                }
+            }
+        }
+    }
+ */
